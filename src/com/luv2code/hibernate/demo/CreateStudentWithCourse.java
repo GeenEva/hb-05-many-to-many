@@ -5,10 +5,13 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import com.luv2code.hibernate.demo.entity.Course;
+import com.luv2code.hibernate.demo.entity.DateUtils;
 import com.luv2code.hibernate.demo.entity.Instructor;
 import com.luv2code.hibernate.demo.entity.InstructorDetail;
+import com.luv2code.hibernate.demo.entity.Review;
+import com.luv2code.hibernate.demo.entity.Student;
 
-public class DeleteCourseDemo {
+public class CreateStudentWithCourse {
 
 	public static void main(String[] args) {
 		
@@ -17,6 +20,8 @@ public class DeleteCourseDemo {
 				.addAnnotatedClass(Instructor.class)
 				.addAnnotatedClass(InstructorDetail.class)
 				.addAnnotatedClass(Course.class)
+				.addAnnotatedClass(Review.class)
+				.addAnnotatedClass(Student.class)
 				.buildSessionFactory();
 
 		Session session = factory.getCurrentSession();
@@ -25,10 +30,18 @@ public class DeleteCourseDemo {
 			
 			session.beginTransaction();
 			
-			Course tempCourse = session.get(Course.class, 12);
+			Course tempCourse = new Course("MyCourse");
+			session.save(tempCourse);
 			
-			session.delete(tempCourse);
+			Student student = new Student("Lily", "Aka", "mail");
+			Student student2 = new Student("Tuki", "Olo", "meeuw");
 			
+			tempCourse.addStudent(student);
+			tempCourse.addStudent(student2);
+			
+			session.save(student);
+			session.save(student2);
+			  		
 			session.getTransaction().commit();
 			
 
