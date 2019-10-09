@@ -30,17 +30,16 @@ public class CreateStudentWithCourse {
 			
 			session.beginTransaction();
 			
-			Course tempCourse = new Course("MyCourse");
-			session.save(tempCourse);
+			Course tempCourse = new Course("MyThirdCourse");
 			
-			Student student = new Student("Lily", "Aka", "mail");
-			Student student2 = new Student("Tuki", "Olo", "meeuw");
+			
+			Student student = new Student("Hama", "Okiodu", "beeuw");
+			Student student2 = new Student("Tama", "werwke", "leeuw");
 			
 			tempCourse.addStudent(student);
 			tempCourse.addStudent(student2);
 			
-			session.save(student);
-			session.save(student2);
+			session.persist(tempCourse);
 			  		
 			session.getTransaction().commit();
 			
